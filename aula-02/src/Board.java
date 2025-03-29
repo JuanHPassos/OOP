@@ -2,7 +2,7 @@ class Board {
     private int[][] state;
     private int currentX; // current position (row)
     private int currentY; // current position (column)
-    private int boardSize; // Board dimension
+    private final int boardSize; // Board dimension
 
     public Board(int[][] initialState, int boardSize) {
         this.state = initialState;
@@ -70,22 +70,41 @@ class Board {
     }
 
     public void displayState() {
+        // Print the game board state in a formatted grid
         for (int i = 0; i < boardSize; i++) {
-            System.out.println("+------+------+------+");
-            for (int j = 0; j < boardSize; j++) {
-                System.out.print("|   " + state[i][j] + "  ");
+            // Print top border of the row
+            System.out.print("+");
+            for(int k = 0; k < boardSize; k++){
+                System.out.print("------+");  // Each cell has a 7-character wide border
             }
-            System.out.print("|");
-            System.out.println();
+            
+            System.out.print("\n");  // New line after the border
+            
+            // Print cell values row
+            for (int j = 0; j < boardSize; j++) {
+                // Format each number to take exactly 2 spaces (right-aligned)
+                // %2d means:
+                // - %d for integer
+                // - 2 for minimum width of 2 characters
+                System.out.printf("|  %2d  ", state[i][j]);
+            }
+            System.out.print("|");  // Close the last cell in the row
+            System.out.println();   // New line after values
         }
-        System.out.println("+------+------+------+\n");
+        
+        // Print bottom border of the board
+        System.out.print("+");
+        for(int k = 0; k < boardSize; k++){
+            System.out.print("------+");
+        }
+        System.out.println("\n");  // Extra new line for spacing
     }
 
     public boolean isWin() {
         int aux = 0;
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
-                if(aux != state[i][i]) return false;
+                if(aux != state[i][j]) return false;
                 aux++;
             }
         }

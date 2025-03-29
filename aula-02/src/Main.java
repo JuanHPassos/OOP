@@ -19,14 +19,16 @@ public class Main {
                 initialState[i][j] = Integer.parseInt(pieceChars[(i * boardSize) + j]);
             }
         }
-        // Consume the line break after the numbers
-        scanner.nextLine();
 
         // Read the sequence of moves
         String moves = scanner.nextLine().trim();
 
         // Create the board and process moves
         Board board = new Board(initialState, boardSize);
+
+        // Print initial state
+        board.displayState();
+
         board.executeMoves(moves);
 
         // Check result
